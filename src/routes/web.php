@@ -13,9 +13,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-Route::get('/mypage/profile', function () {
-    return view('auth.profile');
-})->name('profile.edit');
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProductController;
+
+Route::get('/', [ProductController::class, 'index'])->name('products.index');
+Route::get('/mylist', [ProductController::class, 'mylist'])->name('products.mylist');
+
+Route::get('/mypage/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+Route::post('/mypage/profile', [ProfileController::class, 'update'])->name('profile.update');

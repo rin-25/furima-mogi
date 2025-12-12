@@ -5,17 +5,20 @@
 @section('content')
 <div class="container" style="max-width: 520px;">
     <h2>プロフィール設定</h2>
-    <form method="POST" action="/mypage/profile" enctype="multipart/form-data">
+    <form method="POST" action="/mypage/profile" enctype="multipart/form-data" novalidate>
         @csrf
         <div class="text-center">
             <div class="profile-avatar"></div>
             <label class="btn-secondary mt-12" for="profile_image">画像を選択する</label>
             <input id="profile_image" type="file" name="profile_image" accept="image/*" style="display:none;">
+            @error('profile_image')
+                <div class="error" style="margin-top:6px;">{{ $message }}</div>
+            @enderror
         </div>
 
         <div class="mt-24">
             <label for="name">ユーザー名</label>
-            <input id="name" type="text" name="name" value="{{ old('name') }}" required>
+            <input id="name" type="text" name="name" value="{{ old('name') }}">
             @error('name')
                 <div class="error">{{ $message }}</div>
             @enderror
@@ -45,7 +48,7 @@
             @enderror
         </div>
 
-        <button type="submit" class="btn-primary mt-18">更新する</button>
+        <button type="submit" class="btn-primary mt-18" formnovalidate>更新する</button>
     </form>
 </div>
 @endsection
